@@ -1,5 +1,8 @@
 # Grocery Inventory App
 
+By: MANALO, Rommel P. (2024-00584-SR-0) - BSIT 2-3
+For: OOP Workshop Activity
+
 This is a JavaFX desktop application for grocery store inventory management. It was built with Java 21, Maven, JavaFX/FXML, Supabase PostgreSQL via JDBC, and BCrypt password hashing.
 
 The app supports product inventory CRUD, user login, role-based access, admin-managed employee accounts, and an activity log for important actions such as logins, product changes, and account updates.
