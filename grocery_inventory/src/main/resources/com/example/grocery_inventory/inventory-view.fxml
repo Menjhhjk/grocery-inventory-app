@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<TabPane fx:id="mainTabPane" prefHeight="650.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE"
+         xmlns="http://javafx.com/javafx/21"
+         xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="com.example.grocery_inventory.controller.InventoryController">
+    <tabs>
+        <Tab fx:id="inventoryTab" text="Inventory">
+            <content>
+                <BorderPane>
+                    <top>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <padding>
+                                <Insets bottom="10.0" left="15.0" right="15.0" top="10.0"/>
+                            </padding>
+                            <children>
+                                <TextField fx:id="searchField" onAction="#onSearch" prefWidth="350.0" promptText="Search by name or barcode"/>
+                                <Button onAction="#onSearch" text="Search"/>
+                                <Button onAction="#onClear" text="Clear"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Button fx:id="newProductButton" onAction="#onNewProduct" text="+ New Product"
+                                        style="-fx-background-color: #2ecc71; -fx-text-fill: white;"/>
+                                <Button onAction="#onLogout" text="Log Out"/>
+                            </children>
+                        </HBox>
+                    </top>
+                    <center>
+                        <TableView fx:id="productTable">
+                            <columns>
+                                <TableColumn fx:id="colBarcode" prefWidth="140.0" text="Barcode"/>
+                                <TableColumn fx:id="colName" prefWidth="200.0" text="Name"/>
+                                <TableColumn fx:id="colCategory" prefWidth="150.0" text="Category"/>
+                                <TableColumn fx:id="colPrice" prefWidth="100.0" text="Price"/>
+                                <TableColumn fx:id="colStock" prefWidth="80.0" text="Stock"/>
+                                <TableColumn fx:id="colUnit" prefWidth="80.0" text="Unit"/>
+                            </columns>
+                        </TableView>
+                    </center>
+                    <bottom>
+                        <VBox fx:id="inventoryFormBox" spacing="10.0">
+                            <padding>
+                                <Insets bottom="10.0" left="15.0" right="15.0" top="10.0"/>
+                            </padding>
+                            <children>
+                                <Separator/>
+                                <GridPane hgap="10.0" vgap="8.0">
+                                    <children>
+                                        <Label text="Barcode:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                        <TextField fx:id="barcodeField" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                                        <Label text="Name:" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                                        <TextField fx:id="nameField" prefWidth="220.0" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+                                        <Label text="Category:" GridPane.columnIndex="4" GridPane.rowIndex="0"/>
+                                        <ComboBox fx:id="categoryCombo" prefWidth="150.0" GridPane.columnIndex="5" GridPane.rowIndex="0"/>
+
+                                        <Label text="Price (PHP):" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                        <TextField fx:id="priceField" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                                        <Label text="Stock:" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                                        <TextField fx:id="stockField" prefWidth="220.0" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                                        <Label text="Unit:" GridPane.columnIndex="4" GridPane.rowIndex="1"/>
+                                        <TextField fx:id="unitField" prefWidth="150.0" promptText="e.g. pcs, kg, bottle"
+                                                   GridPane.columnIndex="5" GridPane.rowIndex="1"/>
+                                    </children>
+                                </GridPane>
+                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                    <children>
+                                        <Button fx:id="saveButton" minWidth="90.0" onAction="#onSave" text="Save"
+                                                style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+                                        <Button fx:id="updateButton" minWidth="90.0" onAction="#onUpdate" text="Update"
+                                                style="-fx-background-color: #f39c12; -fx-text-fill: white;"/>
+                                        <Button fx:id="deleteButton" minWidth="90.0" onAction="#onDelete" text="Delete"
+                                                style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+                                        <Button minWidth="90.0" onAction="#onCancel" text="Cancel"/>
+                                        <Label fx:id="statusLabel" style="-fx-text-fill: #7f8c8d;"/>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </bottom>
+                </BorderPane>
+            </content>
+        </Tab>
+        <Tab fx:id="logTab" onSelectionChanged="#onTabSelected" text="Activity Log">
+            <content>
+                <BorderPane>
+                    <top>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <padding>
+                                <Insets bottom="10.0" left="15.0" right="15.0" top="10.0"/>
+                            </padding>
+                            <children>
+                                <Label text="Filter:"/>
+                                <Button onAction="#onFilterAll" text="All"/>
+                                <Button onAction="#onFilterProducts" text="Products"/>
+                                <Button onAction="#onFilterLogins" text="Logins"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Button onAction="#onRefresh" text="Refresh"/>
+                                <Button onAction="#onLogout" text="Log Out"/>
+                            </children>
+                        </HBox>
+                    </top>
+                    <center>
+                        <TableView fx:id="logTable">
+                            <columns>
+                                <TableColumn fx:id="colLogAt" prefWidth="160.0" text="Date &amp; Time"/>
+                                <TableColumn fx:id="colLogBy" prefWidth="120.0" text="User"/>
+                                <TableColumn fx:id="colLogAction" prefWidth="130.0" text="Action"/>
+                                <TableColumn fx:id="colLogEntity" prefWidth="100.0" text="Entity"/>
+                                <TableColumn fx:id="colLogDesc" prefWidth="450.0" text="Description"/>
+                            </columns>
+                        </TableView>
+                    </center>
+                </BorderPane>
+            </content>
+        </Tab>
+        <Tab fx:id="accountTab" text="Accounts">
+            <content>
+                <BorderPane>
+                    <top>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <padding>
+                                <Insets bottom="10.0" left="15.0" right="15.0" top="10.0"/>
+                            </padding>
+                            <children>
+                                <TextField fx:id="accountSearchField" onAction="#onSearchAccounts" prefWidth="350.0" promptText="Search by username or role"/>
+                                <Button onAction="#onSearchAccounts" text="Search"/>
+                                <Button onAction="#onClearAccountSearch" text="Clear"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Button onAction="#onNewAccount" text="+ New Account"
+                                        style="-fx-background-color: #2ecc71; -fx-text-fill: white;"/>
+                                <Button onAction="#onLogout" text="Log Out"/>
+                            </children>
+                        </HBox>
+                    </top>
+                    <center>
+                        <TableView fx:id="accountTable">
+                            <columns>
+                                <TableColumn fx:id="colAccountUsername" prefWidth="280.0" text="Username"/>
+                                <TableColumn fx:id="colAccountRole" prefWidth="160.0" text="Role"/>
+                            </columns>
+                        </TableView>
+                    </center>
+                    <bottom>
+                        <VBox spacing="10.0">
+                            <padding>
+                                <Insets bottom="10.0" left="15.0" right="15.0" top="10.0"/>
+                            </padding>
+                            <children>
+                                <Separator/>
+                                <GridPane hgap="10.0" vgap="8.0">
+                                    <children>
+                                        <Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                        <TextField fx:id="accountUsernameField" prefWidth="220.0" promptText="Employee username"
+                                                   GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                                        <Label text="Role:" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                                        <ComboBox fx:id="accountRoleCombo" prefWidth="180.0" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+                                        <Button maxHeight="26.0" maxWidth="26.0" minHeight="26.0" minWidth="26.0"
+                                                onAction="#onShowRoleHelp" text="?"
+                                                style="-fx-background-radius: 13px; -fx-border-radius: 13px; -fx-border-color: #95a5a6; -fx-background-color: white; -fx-font-weight: bold;"
+                                                GridPane.columnIndex="4" GridPane.rowIndex="0"/>
+                                        <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                        <PasswordField fx:id="accountPasswordField" prefWidth="220.0" promptText="Required for new account"
+                                                       GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                                        <Label text="Confirm:" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                                        <PasswordField fx:id="accountConfirmPasswordField" prefWidth="180.0" promptText="Repeat password"
+                                                       GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                                    </children>
+                                </GridPane>
+                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                    <children>
+                                        <Button minWidth="90.0" onAction="#onCreateAccount" text="Save"
+                                                style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+                                        <Button minWidth="90.0" onAction="#onUpdateAccount" text="Update"
+                                                style="-fx-background-color: #f39c12; -fx-text-fill: white;"/>
+                                        <Button minWidth="90.0" onAction="#onClearAccountForm" text="Clear"/>
+                                        <Label fx:id="accountStatusLabel"/>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </bottom>
+                </BorderPane>
+            </content>
+        </Tab>
+    </tabs>
+</TabPane>
