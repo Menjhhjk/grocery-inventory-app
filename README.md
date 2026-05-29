@@ -34,7 +34,3 @@ Username: `Vieweronly`
 Password: `Viewerpassword`
 
 Viewers can only view and search the inventory. They cannot edit products, view activity logs, or manage accounts.
-
-## Database Setup
-
-Run `grocery_inventory/supabase_setup.sql` in the Supabase SQL Editor before logging in. Configure `grocery_inventory/.env` with your Supabase PostgreSQL JDBC connection details.
